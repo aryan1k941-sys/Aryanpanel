@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{% block title %}{{ site_name }}{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static',filename='style.css') }}"></head>
+<body><div class="wrap">
+<header class="top"><a class="brand" href="{{ url_for('home') }}">ARYAN<span> HOST</span></a>
+<nav class="nav">
+{% if me %}<a href="{{ url_for('admin_dashboard') if me.role=='admin' else url_for('dashboard') }}">{{ 'Admin Panel' if me.role=='admin' else 'Dashboard' }}</a>
+<span class="muted">{{ me.name }} · ₹{{ '%.2f'|format(me.balance) }}</span>
+<form method="post" action="{{ url_for('logout') }}"><button class="secondary small" type="submit">Logout</button></form>
+{% else %}<a href="{{ url_for('login') }}">Login</a><a class="btn small" href="{{ url_for('register') }}">Create account</a>{% endif %}
+</nav></header>
+{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="flash {{ category }}">{{ message }}</div>{% endfor %}{% endwith %}
+{% block content %}{% endblock %}
+<footer class="footer">ARYAN RESELLER PANEL · Secure server-side API integration · Keep API secrets private.</footer></div>
+<script>
+document.querySelectorAll('form').forEach(f=>f.addEventListener('submit',()=>{const b=f.querySelector('button[type=submit]');if(b&&!b.dataset.noload){b.dataset.noload='1';b.disabled=true;b.innerHTML='<span class="spinner"></span> Please wait…';}}));
+</script></body></html>

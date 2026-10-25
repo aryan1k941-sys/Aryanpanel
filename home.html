@@ -1,0 +1,10 @@
+{% extends "layout.html" %}{% block title %}ARYAN HOST · Reseller{% endblock %}{% block content %}
+<section class="hero"><div><span class="pill">RESELLER API PLATFORM</span><h1>One panel.<br><span class="gradient">Your own business.</span></h1>
+<p class="muted">Manage services, set your own selling prices, take verified UPI payments and track every order from one mobile-friendly dashboard.</p>
+<div class="inline" style="margin-top:22px"><a class="btn" href="{{ url_for('register') }}">Get started →</a><a class="btn secondary" href="{{ url_for('login') }}">Sign in</a></div>
+<p class="tiny">Provider API integration requires the provider's documented endpoint and request/response format.</p></div>
+<div class="glow"><div class="orbit"></div></div></section>
+<section class="section"><h2>Featured services</h2><div class="cards">
+{% for s in services %}<article class="card"><span class="pill">SERVICE #{{ s.id }}</span><h3>{{ s.name }}</h3><p class="muted">{{ s.description or 'Provider service' }}</p><h2>₹{{ '%.2f'|format(s.price) }} <span class="tiny">/ unit</span></h2>{% if me %}<a class="btn full" href="{{ url_for('dashboard') }}">Order service</a>{% else %}<a class="btn full" href="{{ url_for('register') }}">Register to order</a>{% endif %}</article>
+{% else %}<article class="card"><h3>Services will appear here</h3><p class="muted">Configure provider API and add services from the admin panel after setup.</p></article>{% endfor %}
+</div></section>{% endblock %}

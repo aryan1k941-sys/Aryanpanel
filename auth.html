@@ -1,0 +1,9 @@
+{% extends "layout.html" %}{% block title %}{{ 'Create account' if mode=='register' else 'Login' }} · ARYAN HOST{% endblock %}{% block content %}
+<div class="auth"><div class="card"><span class="pill">{{ 'NEW ACCOUNT' if mode=='register' else 'SECURE SIGN IN' }}</span><h1>{{ 'Create your account' if mode=='register' else 'Welcome back' }}</h1><p class="muted">{{ 'Join the reseller panel.' if mode=='register' else 'Sign in to manage your services and wallet.' }}</p>
+<form method="post">
+{% if mode=='register' %}<label>Name</label><input name="name" maxlength="80" required autocomplete="name">{% endif %}
+<label>Email</label><input type="email" name="email" required autocomplete="email">
+<label>Password</label><input type="password" name="password" minlength="8" required autocomplete="{{ 'new-password' if mode=='register' else 'current-password' }}">
+<button class="full" style="width:100%;margin-top:18px" type="submit">{{ 'Create account' if mode=='register' else 'Login' }}</button></form>
+<p class="muted tiny">{% if mode=='register' %}Already registered? <a href="{{ url_for('login') }}">Sign in</a>{% else %}New here? <a href="{{ url_for('register') }}">Create account</a>{% endif %}</p>
+</div></div>{% endblock %}
